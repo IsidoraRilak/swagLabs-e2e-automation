@@ -13,10 +13,10 @@ public class LoginPage {
     public final WebDriver webDriver;
     private WebDriverWait wait;
 
-    private final By userNameInputField = By.id("user-name");
+    private final By usernameInputField = By.id("user-name");
     private final By passwordInputField = By.id("password");
     private final By loginButton = By.cssSelector(".submit-button.btn_action");
-    private final By logoutButton = By.xpath("//a[text()='Logout']");
+    private final By errorMessage = By.cssSelector("h3[data-test='error']");
 
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -24,7 +24,7 @@ public class LoginPage {
     }
 
     private WebElement getUsernameInputField() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(userNameInputField));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInputField));
     }
 
     private WebElement getPasswordInputField() {
@@ -32,25 +32,33 @@ public class LoginPage {
     }
 
     private WebElement getLoginButton() {
-        return webDriver.findElement(loginButton);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton));
     }
 
-    private WebElement getLogoutButton() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(logoutButton));
-    }
-
-    public void enterEmailAndPassword(String email, String password) {
-        getUsernameInputField().clear();
-        getPasswordInputField().clear();
-        getUsernameInputField().sendKeys(email);
-        getPasswordInputField().sendKeys(password);
+    private WebElement getErrorMessage() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
     }
 
     public void clickOnLoginButton() {
         getLoginButton().click();
     }
 
-    public boolean isLogoutButtonDisplayed() {
-        return getLogoutButton().isDisplayed();
+    public boolean isErrorMessageDisplayed(String errorMessage) {
+        String actualText = getErrorMessage().getText();
+        return actualText.contains(errorMessage);
+    }
+
+    public void enterUsername(String username) {
+        getUsernameInputField().clear();
+        getUsernameInputField().sendKeys(username);
+    }
+
+    public void enterPassword(String password) {
+        getPasswordInputField().clear();
+        getPasswordInputField().sendKeys(password);
+    }
+
+    public boolean isLoginButtonDisplayed() {
+        return getLoginButton().isDisplayed();
     }
 }

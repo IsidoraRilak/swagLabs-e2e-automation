@@ -19,6 +19,7 @@ public class CheckoutPage {
     private final By continueButton = By.xpath("//input[@type='submit']");
     private final By finishButton = By.xpath("//button[@name='finish']");
     private final By orderConfirmationMessage = By.xpath("//h2[text()='Thank you for your order!']");
+    private final By checkoutCompleteLabel = By.xpath("//span[text()='Checkout: Complete!']");
 
     public CheckoutPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -53,6 +54,10 @@ public class CheckoutPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(orderConfirmationMessage));
     }
 
+    private WebElement getCheckoutCompleteLabel() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutCompleteLabel));
+    }
+
     public void clickOnCheckoutButton() {
         getCheckoutButton().click();
     }
@@ -79,5 +84,9 @@ public class CheckoutPage {
 
     public boolean isOrderConfirmationMessageDisplayed() {
         return getOrderConfirmationMessage().isDisplayed();
+    }
+
+    public boolean isCheckoutCompleteLabelDisplayed() {
+        return getCheckoutCompleteLabel().isDisplayed();
     }
 }

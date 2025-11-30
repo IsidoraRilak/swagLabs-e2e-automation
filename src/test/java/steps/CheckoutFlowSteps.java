@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import pageObjects.CheckoutPage;
 import pageObjects.HomePage;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckoutFlowSteps {
@@ -47,6 +48,9 @@ public class CheckoutFlowSteps {
 
     @Then("Order confirmation message is displayed")
     public void orderConfirmationMessageIsDisplayed() {
-        assertTrue(checkoutPage.isOrderConfirmationMessageDisplayed(), "Order confirmation message is not displayed");
+        assertAll(
+                () -> assertTrue(checkoutPage.isOrderConfirmationMessageDisplayed(), "Order confirmation message is not displayed"),
+                () -> assertTrue(checkoutPage.isCheckoutCompleteLabelDisplayed(), "Checkout complete label is not displayed")
+        );
     }
 }

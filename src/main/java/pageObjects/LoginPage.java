@@ -17,6 +17,8 @@ public class LoginPage {
     private final By passwordInputField = By.id("password");
     private final By loginButton = By.cssSelector(".submit-button.btn_action");
     private final By errorMessage = By.cssSelector("h3[data-test='error']");
+    private final By metaDescription = By.cssSelector("meta[name='description']");
+    private final By viewportTag = By.cssSelector("meta[name='viewport']");
 
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -37,6 +39,14 @@ public class LoginPage {
 
     private WebElement getErrorMessage() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+    }
+
+    private WebElement getMetaDescription() {
+        return webDriver.findElement(metaDescription);
+    }
+
+    private WebElement getViewportTag() {
+        return webDriver.findElement(viewportTag);
     }
 
     public void clickOnLoginButton() {
@@ -60,5 +70,17 @@ public class LoginPage {
 
     public boolean isLoginButtonDisplayed() {
         return getLoginButton().isDisplayed();
+    }
+
+    public String getTitleText() {
+        return webDriver.getTitle();
+    }
+
+    public String getMetaDescriptionContent() {
+        return getMetaDescription().getAttribute("content");
+    }
+
+    public String getViewportTagContent() {
+        return getViewportTag().getAttribute("content");
     }
 }

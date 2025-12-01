@@ -17,6 +17,7 @@ public class HomePage {
     private final By menuIcon = By.cssSelector("#react-burger-menu-btn");
     private final By addToCartButton = By.cssSelector(".btn.btn_primary.btn_small.btn_inventory");
     private final By cartIcon = By.xpath("//a[@data-test='shopping-cart-link']");
+    private final By productImages = By.cssSelector("img.inventory_item_img");
 
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -34,6 +35,11 @@ public class HomePage {
     private List<WebElement> getAddToCartButtons() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartButton));
         return webDriver.findElements(addToCartButton);
+    }
+
+    private List<WebElement> getProductImages() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(productImages));
+        return webDriver.findElements(productImages);
     }
 
     private WebElement getCartIcon() {
@@ -58,5 +64,25 @@ public class HomePage {
 
     public void clickOnCartIcon() {
         getCartIcon().click();
+    }
+
+    public boolean allProductImagesHaveAltAttribute() {
+        for (WebElement image : getProductImages()) {
+            String altText = image.getAttribute("alt");
+            if (altText == null || altText.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean allProductImagesHaveDescriptiveFileNames() {
+        for (WebElement image : getProductImages()) {
+            String srcText = image.getAttribute("src");
+            if (srcText == null || !srcText.contains(".jpg")) {
+                return false;
+            }
+        }
+        return true;
     }
 }

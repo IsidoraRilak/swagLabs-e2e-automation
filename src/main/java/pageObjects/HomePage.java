@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class HomePage {
+
     public final WebDriver webDriver;
     private WebDriverWait wait;
 
@@ -23,13 +24,13 @@ public class HomePage {
     private final By productName = By.className("inventory_item_name");
     private final By productPrice = By.cssSelector(".inventory_item_price");
 
-    private By sortingOption(String sortingCriteria) {
-        return By.xpath("//option[text()='" + sortingCriteria + "']");
-    }
-
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
         this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+    }
+
+    private By sortingOption(String sortingCriteria) {
+        return By.xpath("//option[text()='" + sortingCriteria + "']");
     }
 
     private WebElement getLogoutButton() {
@@ -134,5 +135,9 @@ public class HomePage {
             productPrices.add(Double.parseDouble(productPrice.getText().replace("$", "")));
         }
         return productPrices;
+    }
+
+    public void clickOnFirstProductName() {
+        getProductNames().getFirst().click();
     }
 }

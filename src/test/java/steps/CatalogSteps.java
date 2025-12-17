@@ -69,4 +69,24 @@ public class CatalogSteps {
                 () -> assertTrue(productDetailsPage.isProductImageDisplayed(), "Product image is not displayed")
         );
     }
+
+    @When("User clicks on add to cart button")
+    public void userClicksOnAddToCartButton() {
+        productDetailsPage.clickOnAddToCartButton();
+    }
+
+    @Then("Product is added to cart")
+    public void productIsAddedToCart() {
+        assertTrue(productDetailsPage.isCartCount("1"), "Product count in cart is not 1");
+    }
+
+    @When("User clicks on back to products button")
+    public void userClicksOnBackToProductsButton() {
+        productDetailsPage.clickOnBackToProductsButton();
+    }
+
+    @Then("Home page is displayed")
+    public void homePageIsDisplayed() {
+        assertTrue(homePage.isHomePageDisplayed(), "Product page is not displayed");
+    }
 }

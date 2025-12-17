@@ -1,6 +1,7 @@
 @FE
 Feature: Catalog
-  This feature tests product sorting by alphabetical order and by price in the catalog.
+  This feature tests product sorting by alphabetical order and by price in the catalog, adding a product to the cart
+  from product details page and navigation from product details page to the home page
 
   Background: User is logged in to Swag Labs application
     Given User is on Login page
@@ -29,3 +30,15 @@ Feature: Catalog
   Scenario: Product details are displayed when user opens the product
     When User clicks on first product name
     Then Product details are displayed
+
+  Scenario: Product can be added to the cart from the product details page
+    And User clicks on first product name
+    And Product details are displayed
+    When User clicks on add to cart button
+    Then Product is added to cart
+
+  Scenario: User can navigate back to home page from product details page
+    And User clicks on first product name
+    And Product details are displayed
+    When User clicks on back to products button
+    Then Home page is displayed

@@ -140,4 +140,8 @@ public class HomePage {
     public void clickOnFirstProductName() {
         getProductNames().getFirst().click();
     }
+
+    public boolean isHomePageDisplayed() {
+        return getSortingDropdownMenu().isDisplayed();
+    }
 }

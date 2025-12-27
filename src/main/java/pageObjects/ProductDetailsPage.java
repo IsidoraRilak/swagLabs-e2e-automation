@@ -20,6 +20,7 @@ public class ProductDetailsPage {
     private final By addToCartButton = By.id("add-to-cart");
     private final By cartCount = By.cssSelector("[data-test='shopping-cart-badge']");
     private final By backToProductsButton = By.cssSelector("[data-test='back-to-products']");
+    private final By removeButton = By.xpath("//button[text()='Remove']");
 
     public ProductDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -50,6 +51,10 @@ public class ProductDetailsPage {
         return wait.until(ExpectedConditions.elementToBeClickable(backToProductsButton));
     }
 
+    private WebElement getRemoveButton() {
+        return wait.until(ExpectedConditions.elementToBeClickable(removeButton));
+    }
+
     public boolean isProductNameDisplayed() {
         return getProductName().isDisplayed();
     }
@@ -77,5 +82,16 @@ public class ProductDetailsPage {
     public boolean isCartCount(String countNumber) {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.textToBePresentInElementLocated(cartCount, countNumber));
+    }
+
+    public void clickOnRemoveButton() {
+        getRemoveButton().click();
+    }
+
+    public boolean isCartCountVisible() {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
+        return wait.until(driver ->
+                driver.findElements(cartCount).isEmpty()
+        );
     }
 }

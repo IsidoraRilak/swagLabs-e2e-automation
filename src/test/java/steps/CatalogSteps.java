@@ -89,4 +89,14 @@ public class CatalogSteps {
     public void homePageIsDisplayed() {
         assertTrue(homePage.isHomePageDisplayed(), "Product page is not displayed");
     }
+
+    @When("User clicks on remove button")
+    public void userClicksOnRemoveButton() {
+        productDetailsPage.clickOnRemoveButton();
+    }
+
+    @Then("Product is removed from cart")
+    public void productIsRemovedFromCart() {
+        assertTrue(productDetailsPage.isCartCountVisible(), "Product is not removed from the cart");
+    }
 }

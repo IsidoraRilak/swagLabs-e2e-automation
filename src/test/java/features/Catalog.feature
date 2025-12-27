@@ -42,3 +42,17 @@ Feature: Catalog
     And Product details are displayed
     When User clicks on back to products button
     Then Home page is displayed
+
+  Scenario: User can remove product from the cart from the product details page
+    And User clicks on first product name
+    And Product details are displayed
+    And User clicks on add to cart button
+    And Product is added to cart
+    When User clicks on remove button
+    Then Product is removed from cart
+
+  Scenario: User can remove product from the cart from the home page
+    And User adds product to the cart
+    And Product is added to cart
+    When User clicks on remove button
+    Then Product is removed from cart

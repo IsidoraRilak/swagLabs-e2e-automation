@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,38 +54,18 @@ public class CatalogSteps {
         }
     }
 
-    @When("User clicks on first product name")
-    public void userClicksOnFirstProductName() {
-        homePage.clickOnFirstProductName();
-    }
-
-    @Then("Product details are displayed")
-    public void productDetailsAreDisplayed() {
-        assertAll(
-                () -> assertTrue(productDetailsPage.isProductNameDisplayed(), "Product name is not displayed"),
-                () -> assertTrue(productDetailsPage.isProductDescriptionDisplayed(), "Product description is not displayed"),
-                () -> assertTrue(productDetailsPage.isProductPriceDisplayed(), "Product price is not displayed"),
-                () -> assertTrue(productDetailsPage.isProductImageDisplayed(), "Product image is not displayed")
-        );
-    }
-
-    @When("User clicks on add to cart button")
-    public void userClicksOnAddToCartButton() {
-        productDetailsPage.clickOnAddToCartButton();
-    }
-
     @Then("Product is added to cart")
     public void productIsAddedToCart() {
         assertTrue(productDetailsPage.isCartCount("1"), "Product count in cart is not 1");
     }
 
-    @When("User clicks on back to products button")
-    public void userClicksOnBackToProductsButton() {
-        productDetailsPage.clickOnBackToProductsButton();
+    @When("User clicks on remove button")
+    public void userClicksOnRemoveButton() {
+        productDetailsPage.clickOnRemoveButton();
     }
 
-    @Then("Home page is displayed")
-    public void homePageIsDisplayed() {
-        assertTrue(homePage.isHomePageDisplayed(), "Product page is not displayed");
+    @Then("Product is removed from cart")
+    public void productIsRemovedFromCart() {
+        assertTrue(productDetailsPage.isCartCountVisible(), "Product is not removed from the cart");
     }
 }

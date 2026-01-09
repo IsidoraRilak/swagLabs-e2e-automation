@@ -1,8 +1,9 @@
-package steps;
+package steps.e2e;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import pageObjects.LoginPage;
+import steps.BaseSteps;
 
 import static org.junit.jupiter.api.Assertions.*;
 

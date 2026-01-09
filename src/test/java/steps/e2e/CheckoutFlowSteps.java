@@ -1,10 +1,11 @@
-package steps;
+package steps.e2e;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pageObjects.CheckoutPage;
 import pageObjects.HomePage;
+import steps.BaseSteps;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;

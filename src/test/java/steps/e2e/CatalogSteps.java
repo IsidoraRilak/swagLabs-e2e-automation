@@ -1,10 +1,11 @@
-package steps;
+package steps.e2e;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pageObjects.HomePage;
 import pageObjects.ProductDetailsPage;
+import steps.BaseSteps;
 
 import java.util.Comparator;
 import java.util.LinkedList;

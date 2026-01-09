@@ -1,7 +1,8 @@
-package steps;
+package steps.e2e;
 
 import io.cucumber.java.en.Then;
 import pageObjects.HomePage;
+import steps.BaseSteps;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

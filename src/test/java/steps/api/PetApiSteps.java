@@ -20,6 +20,7 @@ public class PetApiSteps {
     private PetDTO petDTO;
     private Response response;
     private CommonDataSteps commonDataSteps;
+    private long nonExistingPetId = 999L;
 
     public PetApiSteps(CommonDataSteps commonDataSteps) {
         this.commonDataSteps = commonDataSteps;
@@ -28,7 +29,6 @@ public class PetApiSteps {
     @Given("Pet data is prepared")
     public void petDataIsPrepared() {
         petDTO = new PetDTO();
-        petDTO.setId(0);
         petDTO.setName("doggie");
         petDTO.setStatus("available");
         petDTO.setPhotoUrls(List.of("string"));
@@ -48,6 +48,7 @@ public class PetApiSteps {
     public void postRequestIsSentToCreateAPet() {
         response = petRequests.createPet(petDTO);
         commonDataSteps.response = response;
+        petDTO.setId(response.jsonPath().getLong("id"));
     }
 
     @And("Response contains pet information")
@@ -85,5 +86,29 @@ public class PetApiSteps {
         statuses.forEach(petStatus ->
                 assertEquals(status, petStatus, "Pet has incorrect status")
         );
+    }
+
+    @When("DELETE request is sent to delete the pet")
+    public void deleteRequestIsSentToDeleteThePet() {
+        response = petRequests.deletePet(petDTO.getId());
+        commonDataSteps.response = response;
+    }
+
+    @And("GET request is sent to retrieve pet information")
+    public void getRequestIsSentToRetrievePetInformation() {
+        response = petRequests.getPetById(petDTO.getId());
+        commonDataSteps.response = response;
+    }
+
+    @When("DELETE request is sent to delete non-existing pet")
+    public void deleteRequestIsSentToDeleteNonExistingPet() {
+        response = petRequests.deletePet(nonExistingPetId);
+        commonDataSteps.response = response;
+    }
+
+    @When("GET request is sent to retrieve the pet by non-existing id")
+    public void getRequestIsSentToRetrieveThePetByNonExistingId() {
+        response = petRequests.getPetById(nonExistingPetId);
+        commonDataSteps.response = response;
     }
 }

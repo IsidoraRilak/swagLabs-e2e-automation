@@ -15,4 +15,12 @@ public class PetRequests extends BaseRequests {
     public Response getPetsByStatus(String statusValue) {
         return doGetRequestWithQueryParam(FIND_BY_STATUS_PATH, "status", statusValue);
     }
+
+    public Response deletePet(Long id) {
+        return doDeleteRequest(PET_PATH + "/" + id);
+    }
+
+    public Response getPetById(Long id) {
+        return doGetRequest(PET_PATH + "/" + id);
+    }
 }

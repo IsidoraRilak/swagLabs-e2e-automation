@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class PetDTO {
 
-    private int id;
+    private Long id;
     private String name;
     private String status;
     private List<String> photoUrls;

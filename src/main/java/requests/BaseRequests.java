@@ -42,4 +42,13 @@ public class BaseRequests {
                 .put();
         return response;
     }
+
+
+    public Response doGetRequestWithQueryParam(String entityPath, String status, String statusValue) {
+        response = given()
+                .spec(requestSpecBuilder.basicSpecBuilder(entityPath))
+                .queryParam(status, statusValue)
+                .get();
+        return response;
+    }
 }

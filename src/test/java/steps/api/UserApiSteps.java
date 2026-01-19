@@ -71,7 +71,7 @@ public class UserApiSteps {
         commonDataSteps.response = response;
     }
 
-    @When("Delete user request is sent")
+    @When("DELETE user request is sent")
     public void deleteUserRequestIsSent() {
         response = userRequests.deleteUser(userDTO.getUsername());
         commonDataSteps.response = response;

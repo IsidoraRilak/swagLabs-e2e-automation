@@ -20,7 +20,7 @@ Feature: User tests
     Given User data is prepared
     And POST request is sent to create new user
     And Response status code is 200 "OK"
-    When Delete user request is sent
+    When DELETE user request is sent
     Then Response status code is 200 "OK"
     And GET request is sent to retrieve user information
     And Response status code is 404 "Not found"

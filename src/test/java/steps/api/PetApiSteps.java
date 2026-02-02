@@ -21,6 +21,7 @@ public class PetApiSteps {
     private Response response;
     private CommonDataSteps commonDataSteps;
     private long nonExistingPetId = 999L;
+    private PetDTO updatedPetDTO;
 
     public PetApiSteps(CommonDataSteps commonDataSteps) {
         this.commonDataSteps = commonDataSteps;
@@ -110,5 +111,48 @@ public class PetApiSteps {
     public void getRequestIsSentToRetrieveThePetByNonExistingId() {
         response = petRequests.getPetById(nonExistingPetId);
         commonDataSteps.response = response;
+    }
+
+    @When("PUT request is sent to update the pet")
+    public void putRequestIsSentToUpdateThePet() {
+        updatedPetDTO = new PetDTO();
+        updatedPetDTO.setId(petDTO.getId());
+        updatedPetDTO.setName("updated_dog");
+        updatedPetDTO.setStatus("sold");
+        updatedPetDTO.setPhotoUrls(List.of("updated_string"));
+
+        PetDTO.Category category = new PetDTO.Category();
+        category.setId(1);
+        category.setName("updated_category");
+        updatedPetDTO.setCategory(category);
+
+        PetDTO.Tag tag = new PetDTO.Tag();
+        tag.setId(1);
+        tag.setName("updated_tag");
+        updatedPetDTO.setTags(List.of(tag));
+
+        response = petRequests.updatePet(updatedPetDTO);
+        commonDataSteps.response = response;
+    }
+
+    @And("Response contains updated pet information")
+    public void responseContainsUpdatedPetInformation() {
+
+        assertAll(
+                () -> assertEquals(updatedPetDTO.getName(), response.jsonPath().getString("name"),
+                        "Response contains incorrect pet name"),
+                () -> assertEquals(updatedPetDTO.getStatus(), response.jsonPath().getString("status"),
+                        "Response contains incorrect status"),
+                () -> assertEquals(updatedPetDTO.getCategory().getName(), response.jsonPath().getString("category.name"),
+                        "Response contains incorrect category name"),
+                () -> assertEquals(updatedPetDTO.getCategory().getId(), response.jsonPath().getInt("category.id"),
+                        "Response contains incorrect category id"),
+                () -> assertEquals(updatedPetDTO.getTags().get(0).getName(), response.jsonPath().getString("tags[0].name"),
+                        "Response contains incorrect tag name"),
+                () -> assertEquals(updatedPetDTO.getTags().get(0).getId(), response.jsonPath().getInt("tags[0].id"),
+                        "Response contains incorrect tag id"),
+                () -> assertEquals(updatedPetDTO.getPhotoUrls().get(0), response.jsonPath().getString("photoUrls[0]"),
+                        "Response contains incorrect photo URL")
+        );
     }
 }

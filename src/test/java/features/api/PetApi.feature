@@ -1,8 +1,9 @@
 @BE
 Feature: Pet tests
-This feature tests pet management endpoints. It includes scenarios for creating, retrieving and deleting pets,
-as well as handling negative cases with non-existing pets, ensuring correct responses and status codes.
+  This feature tests pet management endpoints. It includes scenarios for creating, retrieving and deleting pets,
+  as well as handling negative cases with non-existing pets, ensuring correct responses and status codes.
 
+  @DeletePetAfterTestExecution
   Scenario: Pet can be created
     Given Pet data is prepared
     When POST request is sent to create a pet
@@ -32,6 +33,7 @@ as well as handling negative cases with non-existing pets, ensuring correct resp
     When DELETE request is sent to delete non-existing pet
     Then Response status code is 404 "Not found"
 
+  @DeletePetAfterTestExecution
   Scenario: Pet can be retrieved by id
     Given Pet data is prepared
     And POST request is sent to create a pet
@@ -43,3 +45,13 @@ as well as handling negative cases with non-existing pets, ensuring correct resp
   Scenario: Non-existing pet cannot be retrieved
     When GET request is sent to retrieve the pet by non-existing id
     Then Response status code is 404 "Not Found"
+
+  @DeletePetAfterTestExecution
+  Scenario: Existing pet can be updated
+    Given Pet data is prepared
+    And POST request is sent to create a pet
+    And Response status code is 200 "OK"
+    When PUT request is sent to update the pet
+    Then Response status code is 200 "OK"
+    And GET request is sent to retrieve pet information
+    And Response contains updated pet information

@@ -23,4 +23,8 @@ public class PetRequests extends BaseRequests {
     public Response getPetById(Long id) {
         return doGetRequest(PET_PATH + "/" + id);
     }
+
+    public Response updatePet(PetDTO updatedPetDTO) {
+        return doPutRequest(PET_PATH, updatedPetDTO);
+    }
 }

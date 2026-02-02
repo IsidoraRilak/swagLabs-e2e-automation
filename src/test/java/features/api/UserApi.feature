@@ -4,6 +4,7 @@ Feature: User tests
   It covers creating, retrieving, updating, and deleting users, as well as negative scenarios
   for non-existing users to ensure the API responds correctly with proper status codes and messages
 
+  @DeleteUserAfterTestExecution
   Scenario: User can be created
     Given User data is prepared
     And POST request is sent to create new user
@@ -16,6 +17,7 @@ Feature: User tests
     Then Response status code is 404 "Not found"
     And Response contains "User not found" error message
 
+  @DeleteUserAfterTestExecution
   Scenario: Created user can be deleted
     Given User data is prepared
     And POST request is sent to create new user
@@ -29,6 +31,7 @@ Feature: User tests
     When DELETE request is sent to delete non-existing user
     Then Response status code is 404 "Not found"
 
+  @DeleteUserAfterTestExecution
   Scenario: User can be updated
     Given User data is prepared
     And POST request is sent to create new user
